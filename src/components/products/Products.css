@@ -1,0 +1,19 @@
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas por fila */
+    gap: 20px; /* Espacio entre las celdas */
+    justify-items: center; /* Centrar horizontalmente los elementos */
+    margin: 100px 50px 20px 50px;
+}
+
+@media (max-width: 768px) {
+    .products-container {
+        grid-template-columns: repeat(2, 1fr); /* Cambia a 2 columnas en pantallas más pequeñas */
+    }
+}
+
+@media (max-width: 576px) {
+    .products-container {
+        grid-template-columns: 1fr; /* Una columna en pantallas muy pequeñas */
+    }
+}

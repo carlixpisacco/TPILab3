@@ -1,0 +1,49 @@
+.BasicHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+}
+
+.contenedor-card {
+  margin-top:140px;
+  margin-bottom:50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-form {
+  width: 45%;
+  padding: 20px 130px;
+  box-shadow: 0 6px 9px rgba(0, 0, 0, 0.1);
+  background-color: rgba(23, 149, 79, 0.426);
+  border: 1.5px solid rgb(25, 100, 75); 
+  border-radius: 8px; 
+}
+
+.card-title{
+  margin-bottom:30px;
+  font-size:x-large;
+  font-weight: 600;
+}
+
+.label{
+margin-bottom:15px;
+font-weight: 450;
+}
+
+.btn-publicar {
+  margin-top: 30px;
+  padding: 15px;
+  background-color: #095e0f;
+  border-color: #095e0f;
+  color: #dbeaf9;
+  font-weight: 500;
+}
+
+.btn-publicar:hover {
+  background-color: rgb(106, 184, 115);
+  border-color: rgb(106, 184, 115);
+}

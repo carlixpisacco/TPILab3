@@ -1,0 +1,17 @@
+.login-container{
+    margin-top: 140px;
+}
+
+.login-card{
+    margin-left:25%;
+    width: 50%;
+    padding: 40px 130px;
+    box-shadow: 0 6px 9px rgba(0, 0, 0, 0.1);
+    background-color: rgba(165, 201, 215, 0.646);
+    border: 1.5px solid rgb(51, 79, 114); 
+    border-radius: 8px; 
+}
+
+.span-login{
+    margin-top:20px;
+}

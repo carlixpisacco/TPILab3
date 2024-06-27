@@ -1,0 +1,53 @@
+
+.pre-register-container {
+    display: flex;
+    justify-content: space-between; /* Distribuye los contenedores a lo largo de la línea flex con espacio entre ellos */
+    align-items: center;
+    margin-top: 30px;
+  }
+
+.texto-preregister{
+    margin-top:120px;
+    font-size: xx-large;
+    color:rgba(0, 0, 0, 0.402)
+}
+
+.comprador-container,
+.vendedor-container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+  .card-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 90px;
+    width: 350px; /* Ajusta el tamaño del botón según sea necesario */
+    border: none;
+    border-radius: 8px;
+    
+  }
+  
+  .comprador{
+    background-color: #14680c;
+    color: white;
+    transition: background-color 0.3s;
+  }
+  .vendedor{
+    background-color: #800aa8;
+    color: white;
+    transition: background-color 0.3s;
+  }
+  
+  .card-box:hover {
+    background-color: #727c87ce;
+  }
+  
+  .card-icon {
+    margin-bottom: 30px;
+    font-size: 24px;
+  }

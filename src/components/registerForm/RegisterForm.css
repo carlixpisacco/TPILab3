@@ -1,0 +1,40 @@
+.text-header-register{
+  margin-left: 210px;
+}
+
+.form-register-container{
+ 
+  margin-top:140px;
+  margin-bottom:50px;
+  
+}
+
+.user-form {
+    margin-left:25%;
+    width: 50%;
+    padding: 20px 130px;
+    box-shadow: 0 6px 9px rgba(0, 0, 0, 0.1);
+    background-color: rgba(225, 105, 14, 0.646);
+    border: 1.5px solid rgb(141, 48, 7); 
+    border-radius: 8px; 
+  }
+
+.user-label{
+    margin-bottom:15px;
+    color:rgb(141, 48, 7);
+    font-weight: 500;
+}
+  
+.btn-user-register{
+    background-color:rgb(241, 95, 32) ;
+    font-weight: 500;
+    border-color:rgb(241, 95, 32) ;
+    margin-top:10px;
+    margin-bottom: 20px;
+}
+
+.btn-user-register:hover{
+    background-color:rgb(247, 192, 168) ;
+    border-color: rgb(247, 192, 168);
+    color:rgb(230, 24, 24)
+}
