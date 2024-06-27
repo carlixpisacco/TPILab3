@@ -9,6 +9,7 @@ import Login from './components/login/Login'
 import RegisterForm from './components/registerForm/RegisterForm'
 import PreRegisterForm from "./components/preRegisterForm/PreRegisterForm";
 import Protected from "./components/protected/Protected";
+import EditProduct from "./components/editProduct/EditProduct";
 
 function App() {
 
@@ -25,11 +26,11 @@ function App() {
 
     {
       path: "/addProduct",
-      element: //(
-        //<Protected>
+      element: (
+         <Protected>
           <SellProduct/>
-        //</Protected>
-    //),
+        </Protected>
+    ),
     },
 
     
@@ -59,9 +60,15 @@ function App() {
     },
 
     {
+      path: "editProduct/:id", //proteger!!
+      element: <EditProduct />,
+    },
+
+    {
       path: "*",
       element: <NotFound />,
     },
+
   ]);
 
   return (

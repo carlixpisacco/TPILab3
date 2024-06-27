@@ -24,11 +24,26 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
                     description,
                     price,
                     image,
-                    estado,
                 },
             },
         });
     };
+
+    const  handleClickEdit = () => {
+        navigate(`/editProduct/${id}`, {
+            state: {
+                product: {
+                    id,
+                    title,
+                    condition,
+                    size,
+                    description,
+                    price,
+                },
+            },
+        });
+    };
+  
 
     return (
         <div>
@@ -66,7 +81,7 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
                             <>
                                 {estado ? (
                                     <>
-                                        <Button className="btn btn-editar d-block mb-2 mx-auto">Editar</Button>
+                                        <Button className="btn btn-editar d-block mb-2 mx-auto" onClick={handleClickEdit}>Editar</Button>
                                         <Button className="btn btn-eliminar d-block mx-auto">Eliminar</Button>
                                     </>
                                 ) : (

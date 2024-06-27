@@ -12,6 +12,7 @@ const ProductDetails = () => {
   const formattedProductTitle = title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();//pone primera letra en mayus y resto en minuscula.
   const formattedProductSeller = seller.charAt(0).toUpperCase() + seller.slice(1).toLowerCase();
   const {user } = useContext(AuthenticationContext);
+  
   const textStyle = {
     marginLeft: '270px',
   };
