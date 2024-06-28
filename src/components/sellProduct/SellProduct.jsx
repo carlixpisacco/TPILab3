@@ -20,6 +20,7 @@ const SellProduct = () => {
         productPrice: '',
         imageUrl: '',
         estado: true,
+        estadoComprado:false,
     });
 
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -67,6 +68,7 @@ const SellProduct = () => {
                 productPrice: '',
                 imageUrl: '',
                 estado: true,
+                estadoComprado:false,
             });
 
      

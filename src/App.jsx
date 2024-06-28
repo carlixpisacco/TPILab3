@@ -60,8 +60,12 @@ function App() {
     },
 
     {
-      path: "editProduct/:id", //proteger!!
-      element: <EditProduct />,
+      path: "editProduct/:id", 
+      element: (
+        <Protected>
+          <EditProduct />
+        </Protected>
+      ),
     },
 
     {

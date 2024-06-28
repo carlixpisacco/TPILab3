@@ -1,25 +1,85 @@
-.edit-product-container{
+.edit-product-container {
     margin-top: 130px;
-    display:flex;
+    display: flex;
     align-items: center;
-    margin-bottom:30px;
+    margin-bottom: 40px;
 }
 
-.edit-product-card{
-    width: 500px;
+.edit-product-card {
+    width: 400px;
     padding: 50px;
     background-color: #c3ddf7;
     border: 2px solid #1871ca;
-    margin-bottom: 10px;
-    margin-left:30%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.349);
 }
 
-.edit-text{
-    margin-bottom:30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.edit-text.card-text {
+    display: inline-block; 
+    width: auto; 
+    max-width: 100%; 
+}
+
+.input-edit.form-control {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 10px 30px 20px 30px
+}
+
+.input-edit.form-select {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 10px 30px 20px 30px
 }
 
 
+.edit-text {
+    margin-bottom: 30px;
+}
 
+.edit-text .edit-strong {
+    font-weight: 600;
+    font-size: large;
+    color: #50546d;
+    margin-right: 15px;
+}
+
+.btn-edit-editar{
+    background-color: #1871ca;
+    border-color:#1871ca;
+    font-weight: bold;
+}
+
+.btn-edit-editar:hover{
+    background-color: #96c6f6;
+    border-color:#96c6f6;
+    font-weight: bold;
+}
+
+.btn-edit-guardar{
+    margin-right:10px;
+    font-weight: bold;
+    background-color: #d26415;
+    border-color:#d26415;
+}
+
+.btn-edit-guardar:hover{
+    background-color: #e9ac81;
+    border-color:#e9ac81;
+    font-weight: bold;
+}
+
+.btn-edit-x{
+    font-weight: bold;
+}
+
+.btn-edit-x:hover{
+    font-weight: bold;
+    background-color: rgb(214, 122, 122);
+    border-color: rgb(214, 122, 122);
+}

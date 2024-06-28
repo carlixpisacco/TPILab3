@@ -2,14 +2,15 @@ import { Card, Button, Alert } from "react-bootstrap";
 import PropTypes from "prop-types";
 import './ProductItem.css'
 import { useNavigate } from "react-router-dom";
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import AuthenticationContext from '../../services/authentication/Authentication.context';
 
-const ProductItem = ({ id, seller, title, category1, category2, condition, size, description, price, image, estado }) => { //el "estado cambia desde el carrito"
+const ProductItem = ({ id, seller, title, category1, category2, condition, size, description, price, image, estadoComprado, estado }) => { 
     const formattedProductTitle = title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();//pone primera letra en mayus y resto en minuscula.
     const formattedProductSeller = seller.charAt(0).toUpperCase() + seller.slice(1).toLowerCase();
-    const { user } = useContext(AuthenticationContext);
+    const { user,token} = useContext(AuthenticationContext);
     const navigate = useNavigate();
+    const [productDeleted, setProductDeleted] = useState(false);
 
     const handleClickDetails = () => {
         navigate(`/product/${id}`, {
@@ -44,7 +45,29 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
         });
     };
   
+    const updateProductStatus = async () => {
+        try {
+            const response = await fetch(`http://localhost:8000/products/${id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({ estado: !estado }),
+            });
 
+            if (!response.ok) {
+                throw new Error('Error al guardar el producto');
+            }
+            setProductDeleted(true);
+            const data = await response.json();
+            console.log('estado modificado con éxito', data);
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+    
     return (
         <div>
             <div className="card-container">
@@ -79,22 +102,31 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
 
                         {user && user.rol === "vendedor" && (
                             <>
-                                {estado ? (
+                                {!estadoComprado ? (
                                     <>
+                                        {!productDeleted ? (
+                                        <>
                                         <Button className="btn btn-editar d-block mb-2 mx-auto" onClick={handleClickEdit}>Editar</Button>
-                                        <Button className="btn btn-eliminar d-block mx-auto">Eliminar</Button>
+                                        <Button className="btn btn-eliminar d-block mx-auto" onClick={updateProductStatus}>Eliminar</Button>
+                                        </>
+                                        ) : (
+                                            <div className="alert alert-warning d-block mx-auto" style={{ backgroundColor: '#f8d7da', borderColor: '#f5c6cb', color: '#721c24', marginTop:"20px"}}>Eliminaste este producto</div>
+                                        )}
                                     </>
                                 ) : (
-                                    <div className="alert alert-info d-block mx-auto">Este producto fue comprado</div>
+                                    <div className="alert alert-info d-block mx-auto">Vendiste este producto</div>
                                 )}
                             </>
                         )}
-
+                    
                         {user && user.rol === "admin" && (
                             <>
                                 <Button className="btn btn-eliminar d-block mx-auto">Eliminar Producto</Button>
+                                {estadoComprado && (
+                                    <div className="alert alert-info d-block mx-auto">Este producto fue vendido</div>
+                                )}
                                 {!estado && (
-                                    <div className="alert alert-info d-block mx-auto">Este producto ya fue vendido</div>
+                                    <div className="alert alert-info d-block mx-auto">Este producto fue eliminado por su vendedor</div>
                                 )}
                             </>
                         )}
@@ -117,6 +149,7 @@ ProductItem.propTypes = {
     description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
+    estadoComprado: PropTypes.bool.isRequired,
     estado: PropTypes.bool.isRequired,
 };
 

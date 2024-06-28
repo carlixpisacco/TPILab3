@@ -5,29 +5,45 @@ import { Card, Button, Form } from 'react-bootstrap';
 import BasicHeader from '../basicHeader/BasicHeader';
 import { useContext } from 'react';
 import AuthenticationContext from '../../services/authentication/Authentication.context';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const EditProduct = () => {
     const location = useLocation();
-    const { id, title, condition, size, description, price} = location.state.product;
-    const {token} = useContext(AuthenticationContext);
+    const { id, title, condition, size, description, price } = location.state.product;
+    const { token } = useContext(AuthenticationContext);
     const [editingField, setEditingField] = useState(null);
     const [editedValues, setEditedValues] = useState({
-        title,
-        condition,
-        size,
-        description,
-        price,
+        productTitle: title,
+        productCondition: condition,
+        productSize: size,
+        productDescription: description,
+        productPrice: parseFloat(price),
     });
+
+    const textStyle = {
+        marginLeft: '270px',
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setEditedValues({
+            ...editedValues,
+            [name]: name === 'productPrice' ? parseFloat(value) : value,
+        });
+    };
+
+    const handleSaveClick = () => {
+        saveProduct();
+        setEditingField(null);
+    };
 
     const handleEditClick = (field) => {
         setEditingField(field);
     };
 
-    const handleInputChange = (e) => {
-        setEditedValues({
-            ...editedValues,
-            [editingField]: e.target.value,
-        });
+    const handleCancelClick = () => {
+        setEditingField(null);
     };
 
     const saveProduct = async () => {
@@ -35,20 +51,20 @@ const EditProduct = () => {
         const productToSave = {};
 
         // Comprobar cada campo editado y agregarlo al objeto productToSave
-        if (editedValues.title !== title) {
-            productToSave.productTitle = editedValues.title;
+        if (editedValues.productTitle !== title) {
+            productToSave.productTitle = editedValues.productTitle;
         }
-        if (editedValues.condition !== condition) {
-            productToSave.productCondition = editedValues.condition;
+        if (editedValues.productCondition !== condition) {
+            productToSave.productCondition = editedValues.productCondition;
         }
-        if (editedValues.size !== size) {
-            productToSave.productSize = editedValues.size;
+        if (editedValues.productSize !== size) {
+            productToSave.productSize = editedValues.productSize;
         }
-        if (editedValues.description !== description) {
-            productToSave.productDescription = editedValues.description;
+        if (editedValues.productDescription !== description) {
+            productToSave.productDescription = editedValues.productDescription;
         }
-        if (editedValues.price !== price) {
-            productToSave.productPrice = editedValues.price;
+        if (editedValues.productPrice !== price) {
+            productToSave.productPrice = editedValues.productPrice;
         }
 
         try {
@@ -72,62 +88,66 @@ const EditProduct = () => {
         }
     };
 
-    const handleSaveClick = () => {
-        saveProduct();
-        setEditingField(null);
-    };
-
-    const textStyle = {
-        marginLeft: '270px',
-    };
-
     return (
         <div className='edit-product-container'>
             <BasicHeader text="EDITA TU PRODUCTO" buttonText="Volver al menú principal" textStyle={textStyle} />
             <Card className="edit-product-card">
-                <Card.Body>
-
+                <Card.Body className='edit-product-body'>
                     <Card.Text className="edit-text">
-                        <strong>Título:</strong> {editingField === 'title' ? (
+                        <strong className="edit-strong">Título:</strong>
+                        {editingField === 'productTitle' ? (
                             <>
                                 <Form.Control
                                     type="text"
-                                    value={editedValues.title}
+                                    name="productTitle"
+                                    value={editedValues.productTitle}
                                     onChange={handleInputChange}
-                                    className="w-50"
+                                    className="input-edit"
                                 />
-                                <Button variant="success" size="sm" onClick={handleSaveClick}>Guardar</Button>
+                                <Button variant="success" size="sm" className='btn-edit-guardar' onClick={handleSaveClick}>Guardar</Button>
+                                <Button variant="danger" size="sm" className='btn-edit-x' onClick={handleCancelClick}>
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </Button>
                             </>
                         ) : (
-                            <>
-                                {editedValues.title}
-                                <Button variant="primary" size="sm" onClick={() => handleEditClick('title')}>Editar</Button>
-                            </>
+                            <Button variant="primary" className='btn-edit-editar' onClick={() => handleEditClick('productTitle')}>Editar</Button>
                         )}
                     </Card.Text>
 
                     <Card.Text className="edit-text">
-                        <strong>Condición:</strong> {editingField === 'condition' ? (
+                        <strong className="edit-strong">Condición:</strong>
+                        {editingField === 'productCondition' ? (
                             <>
-                                <Form.Select value={editedValues.condition} onChange={handleInputChange} className="w-50">
+                                <Form.Select
+                                    name="productCondition"
+                                    value={editedValues.productCondition}
+                                    onChange={handleInputChange}
+                                    className="input-edit"
+                                >
                                     <option value="" disabled>Elige una opción</option>
                                     <option value="nuevo">Nuevo</option>
                                     <option value="usado">Usado</option>
                                 </Form.Select>
-                                <Button variant="success" size="sm" onClick={handleSaveClick}>Guardar</Button>
+                                <Button variant="success" size="sm" className='btn-edit-guardar' onClick={handleSaveClick}>Guardar</Button>
+                                <Button variant="danger" size="sm" className='btn-edit-x' onClick={handleCancelClick}>
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </Button>
                             </>
                         ) : (
-                            <>
-                                {editedValues.condition}
-                                <Button variant="primary" size="sm" onClick={() => handleEditClick('condition')}>Editar</Button>
-                            </>
+                            <Button variant="primary" className='btn-edit-editar' onClick={() => handleEditClick('productCondition')}>Editar</Button>
                         )}
                     </Card.Text>
 
                     <Card.Text className="edit-text">
-                        <strong>Talle:</strong> {editingField === 'size' ? (
+                        <strong className="edit-strong">Talle:</strong>
+                        {editingField === 'productSize' ? (
                             <>
-                                <Form.Select value={editedValues.size} onChange={handleInputChange} className="w-50">
+                                <Form.Select
+                                    name="productSize"
+                                    value={editedValues.productSize}
+                                    onChange={handleInputChange}
+                                    className="input-edit"
+                                >
                                     <option value="" disabled>Elige una opción</option>
                                     <option value="XS">XS</option>
                                     <option value="S">S</option>
@@ -136,51 +156,56 @@ const EditProduct = () => {
                                     <option value="XL">XL</option>
                                     <option value="XXL">XXL</option>
                                 </Form.Select>
-                                <Button variant="success" size="sm" onClick={handleSaveClick}>Guardar</Button>
+                                <Button variant="success" size="sm" className='btn-edit-guardar' onClick={handleSaveClick}>Guardar</Button>
+                                <Button variant="danger" size="sm" className='btn-edit-x' onClick={handleCancelClick}>
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </Button>
                             </>
                         ) : (
-                            <>
-                                {editedValues.size}
-                                <Button variant="primary" size="sm" onClick={() => handleEditClick('size')}>Editar</Button>
-                            </>
+                            <Button variant="primary" className='btn-edit-editar' onClick={() => handleEditClick('productSize')}>Editar</Button>
                         )}
                     </Card.Text>
 
                     <Card.Text className="edit-text">
-                        <strong>Descripción:</strong> {editingField === 'description' ? (
+                        <strong className="edit-strong">Descripción:</strong>
+                        {editingField === 'productDescription' ? (
                             <>
                                 <Form.Control
-                                    type="text"
-                                    value={editedValues.description}
+                                    as="textarea"
+                                    name="productDescription"
+                                    value={editedValues.productDescription}
                                     onChange={handleInputChange}
-                                    className="w-50"
+                                    className="input-edit"
+                                    style={{ width: '200px', minHeight: '100px', borderRadius: '4px', marginLeft: "30px", marginTop: "10px", marginBottom: "15px" }}
                                 />
-                                <Button variant="success" size="sm" onClick={handleSaveClick}>Guardar</Button>
+                                <Button variant="success" size="sm" className='btn-edit-guardar' onClick={handleSaveClick}>Guardar</Button>
+                                <Button variant="danger" size="sm" className='btn-edit-x' onClick={handleCancelClick} >
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </Button>
                             </>
                         ) : (
-                            <>
-                                {editedValues.description}
-                                <Button variant="primary" size="sm" onClick={() => handleEditClick('description')}>Editar</Button>
-                            </>
+                            <Button variant="primary" className='btn-edit-editar' onClick={() => handleEditClick('productDescription')}>Editar</Button>
                         )}
                     </Card.Text>
 
                     <Card.Text className="edit-text">
-                        <strong>Precio:</strong> {editingField === 'price' ? (
+                        <strong className="edit-strong">Precio:</strong>
+                        {editingField === 'productPrice' ? (
                             <>
                                 <Form.Control
                                     type="number"
-                                    value={editedValues.price}
+                                    name="productPrice"
+                                    value={editedValues.productPrice}
                                     onChange={handleInputChange}
-                                    className="w-50"
+                                    className="input-edit"
                                 />
-                                <Button variant="success" size="sm" onClick={handleSaveClick}>Guardar</Button>
+                                <Button variant="success" size="sm" className='btn-edit-guardar' onClick={handleSaveClick}>Guardar</Button>
+                                <Button variant="danger" size="sm" className='btn-edit-x' onClick={handleCancelClick} >
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </Button>
                             </>
                         ) : (
-                            <>
-                                ${editedValues.price}
-                                <Button variant="primary" size="sm" onClick={() => handleEditClick('price')}>Editar</Button>
-                            </>
+                            <Button variant="primary" className='btn-edit-editar' onClick={() => handleEditClick('productPrice')}>Editar</Button>
                         )}
                     </Card.Text>
                 </Card.Body>

@@ -13,10 +13,10 @@ const Products = ({ products }) => {
   let productsToRender = [];
   if (!user || (user && user.rol === "comprador")) {
     // Para compradores, solo mostrar productos con estado true
-    productsToRender = products.filter(product => product.estado);
+    productsToRender = products.filter(product => !(product.estadoComprado) && product.estado);
   } else if (user && user.rol === "vendedor") {
     // Para vendedores, solo mostrar sus propios productos
-    productsToRender = products.filter(product => product.productSeller === user.username);
+    productsToRender = products.filter(product => product.productSeller === user.username && product.estado);
   } else if (user && user.rol === "admin") {
     // Para admin, mostrar todos los productos
     productsToRender = products;
@@ -40,6 +40,7 @@ const Products = ({ products }) => {
               price={product.productPrice}
               image={product.imageUrl}
               estado={product.estado}
+              estadoComprado={product.estadoComprado}
             />
           ))
         ) : (
