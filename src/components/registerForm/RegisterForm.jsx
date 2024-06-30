@@ -16,6 +16,7 @@ const RegisterForm = () => {
     email: '',
     password: '',
     rol: type,
+    estado:true
   });
   const [confirmPassword, setConfirmPassword] = useState("");
   const [localError, setLocalError] = useState(null);

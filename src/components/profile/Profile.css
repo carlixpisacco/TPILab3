@@ -1,0 +1,73 @@
+.profile-container{
+    margin-top:130px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.profile-card{
+    width: 50%; 
+    border: 1px solid #9c9898; /* Agrega un borde sólido de color gris claro */
+    box-shadow: 0 5px 10px rgba(78, 75, 75, 0.594); /* Agrega una sombra ligera */
+    padding: 20px; /* Añade un poco de espacio interno para separar el contenido del borde */
+}
+
+
+
+.edit-profile-title{
+    margin-top:15px;
+    font-size: xx-large;
+    color:rgb(74, 74, 74)
+}
+
+.edit-profile-email,
+.edit-profile-username{
+    font-size: large;
+    font-weight: 500;
+    color:rgb(65, 104, 233)
+}
+
+.profile-email-data,
+.profile-username-data{
+    font-size:large;
+    font-weight: 300;
+    color:rgb(74, 74, 74);
+}
+
+.edit-new-username{
+    font-size: large;
+    color:rgb(74, 74, 74);
+    font-weight: 500;
+}
+
+.div-btn-editar{
+    display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.btn-edit-editar{
+    margin-bottom:20px;
+    background-color: rgb(30, 77, 131);
+    border-color:rgb(30, 77, 131);
+}
+
+.btn-edit-editar:hover{
+    margin-bottom:20px;
+    background-color: rgb(123, 159, 199);
+    border-color:rgb(123, 159, 199);
+}
+
+.btn-edit-eliminar{
+    margin-bottom:20px;
+    background-color: rgb(173, 20, 20);
+    border-color:rgb(173, 20, 20);
+    font-weight: 500;
+}
+
+.btn-edit-eliminar:hover{
+    margin-bottom:20px;
+    background-color: rgb(212, 97, 97);
+    border-color: rgb(212, 97, 97);
+    
+}

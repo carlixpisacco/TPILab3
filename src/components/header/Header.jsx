@@ -1,12 +1,11 @@
-import { Button} from 'react-bootstrap'; //VER SI AGREGO BADGE PARA CONTADOR DE PRODUCTOS EN EL CARRITO.
+import { Button } from 'react-bootstrap'; //VER SI AGREGO BADGE PARA CONTADOR DE PRODUCTOS EN EL CARRITO.
 import './Header.css'
 import SearchBar from '../searchBar/SearchBar';
 import PropTypes from "prop-types";
 import Selects from '../selects/Selects';
 import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
 import AuthenticationContext from '../../services/authentication/Authentication.context';
 
@@ -21,7 +20,7 @@ const Header = ({ onSearchBar, onSearchSelect }) => {
     const handleClickNewProduct = () => {
         navigate("/addProduct");
     };
-   
+
     const handleBackButtonClick = () => {
         clearSelects();
         onSearchBar('');
@@ -80,13 +79,16 @@ const Header = ({ onSearchBar, onSearchSelect }) => {
         navigate('/shoppingCart');
     };
 
+    const handleClickEditProfile = () => {
+        navigate('/profile');
+    };
+
     return (
         <header className="header">
             <div className="container-fluid header-container">
                 <div className="row align-items-center header-row">
                     <div className="col-auto">
                         {/* Botón volver a mostrar todas las card*/}
-
                         <Button className='button-back' variant="primary" onClick={handleBackButtonClick}>
                             <FontAwesomeIcon className='flecha-header' icon={faArrowLeft} />
                         </Button>
@@ -118,35 +120,52 @@ const Header = ({ onSearchBar, onSearchSelect }) => {
                         />
                     </div>
 
-                    {/* botones*/} 
+                    {/* botones*/}
+
                     {!user && (
                         <>
                             <div className="col-auto">
-                                <Button variant="success" className='btn-register' onClick={handleClickRegister}>Registrarse</Button>
+                                <Button className='btn-register' onClick={handleClickRegister}>Registrarse</Button>
                             </div>
                             <div className="col-auto">
-                                <Button variant="info" className='btn-login' onClick={handleClickLogin}>Ingresar</Button>
+                                <Button className='btn-login' onClick={handleClickLogin}>Ingresar</Button>
                             </div>
                         </>
                     )}
 
-                    {user && user.rol === "comprador" && (
-                        <div className="col-auto">
-                            <Button variant="info" className='btn-shopcart' onClick={handleShoppingCartClick}>
-                                <FontAwesomeIcon icon={faShoppingCart} className='carrito'/>
-                            </Button>
-                        </div>
-                    )}
-
-                    {user && user.rol === "vendedor" && (
-                        <div className="col-auto">
-                            <Button variant="info" className='btn-sale' onClick={handleClickNewProduct}>Subir Producto</Button>
-                        </div>
-                    )}
-
                     {user && (
                         <div className="col-auto">
-                            <Button variant="info" className='btn-logout' onClick={handleLogoutAndRedirect} >Cerrar Sesión</Button>
+                            {(user.rol === "comprador" || user.rol === "vendedor") && (
+                                <Button
+                                    className='btn-edit-profile'
+                                    onClick={handleClickEditProfile}
+                                    title="Editar perfil"  // Utilizando el atributo title estándar de HTML
+                                >
+                                    <FontAwesomeIcon icon={faUser} />
+                                </Button>
+                            )}
+
+                            {user.rol === "comprador" && (
+                                <Button className='btn-shopcart' title="Ir al carrito" onClick={handleShoppingCartClick}>
+                                    <FontAwesomeIcon icon={faShoppingCart} className='carrito' />
+                                </Button>
+                            )}
+
+                            {user.rol === "vendedor" && (
+                                <Button className='btn-sale' onClick={handleClickNewProduct}>
+                                    Subir Producto
+                                </Button>
+                            )}
+
+                            {user.rol === "admin" && (
+                                <Button  className='btn-user-admin'>
+                                    Administrar usuarios
+                                </Button>
+                            )}
+
+                            <Button className='btn-logout' onClick={handleLogoutAndRedirect}>
+                                Cerrar Sesión
+                            </Button>
                         </div>
                     )}
 

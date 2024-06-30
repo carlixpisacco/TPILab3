@@ -21,7 +21,7 @@ export const AuthenticationContextProvider = ({ children }) => {
           id: decodedToken.sub,
           username: decodedToken.username,
           email: decodedToken.email,
-          status: decodedToken.status,
+          estado: decodedToken.estado,
           rol: decodedToken.rol,
         };
         

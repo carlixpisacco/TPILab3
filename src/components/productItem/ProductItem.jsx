@@ -107,7 +107,10 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
                         <div className="mb-3">${price}</div>
 
                         {user && user.rol === "comprador" && (
-                            <Button className="btn btn-comprar d-block mb-2 mx-auto" onClick={handleAddToCart}>Añadir al carrito</Button>
+                            <>
+                            <Button className="btn btn-add-carrito d-block  mx-auto" onClick={handleAddToCart}>Añadir al carrito</Button>
+                            <Button className="btn btn-detalles d-block mx-auto" onClick={handleClickDetails}>Ver Detalles</Button>
+                            </>
                         )}
 
                         {!user && (
@@ -120,7 +123,7 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
                                     <>
                                         {!productDeleted ? (
                                         <>
-                                        <Button className="btn btn-editar d-block mb-2 mx-auto" onClick={handleClickEdit}>Editar</Button>
+                                        <Button className="btn btn-editar d-block  mx-auto" onClick={handleClickEdit}>Editar</Button>
                                         <Button className="btn btn-eliminar d-block mx-auto" onClick={updateProductStatus}>Eliminar</Button>
                                         </>
                                         ) : (

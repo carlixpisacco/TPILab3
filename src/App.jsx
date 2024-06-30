@@ -10,6 +10,7 @@ import RegisterForm from './components/registerForm/RegisterForm'
 import PreRegisterForm from "./components/preRegisterForm/PreRegisterForm";
 import Protected from "./components/protected/Protected";
 import EditProduct from "./components/editProduct/EditProduct";
+import Profile from "./components/profile/Profile";
 
 function App() {
 
@@ -60,12 +61,16 @@ function App() {
     },
 
     {
-      path: "editProduct/:id", 
+      path: "/editProduct/:id", 
       element: (
         <Protected>
           <EditProduct />
         </Protected>
       ),
+    },
+    {
+      path: "/profile",
+      element: <Profile/>,
     },
 
     {

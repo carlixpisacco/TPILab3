@@ -1,6 +1,6 @@
 .search-container {
     margin-left: 0px;
-    width: 200px; 
+    max-width: 150px; 
 }
 
 .search-bar

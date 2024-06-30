@@ -34,7 +34,7 @@ const BasicHeader = ({ text, buttonText, textStyle }) => {
                         <div className="col-auto text-header" style={textStyle}>
                             <span className="text">{text}</span>
                         </div>
-                        {user && (
+                        {user &&  (
                             <div className="col-auto logout-bheader-div">
                                 <Button variant="info" className='btn-logout' onClick={handleLogoutAndRedirect}>
                                     Cerrar Sesión

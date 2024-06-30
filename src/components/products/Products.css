@@ -17,3 +17,12 @@
         grid-template-columns: 1fr; /* Una columna en pantallas muy pequeñas */
     }
 }
+
+.noproductsdiv{
+    grid-column: 2 / 3; /* Ubicar en la segunda columna */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top:90px;
+}

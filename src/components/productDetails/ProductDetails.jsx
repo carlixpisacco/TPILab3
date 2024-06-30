@@ -14,7 +14,8 @@ const ProductDetails = () => {
   const {user } = useContext(AuthenticationContext);
   
   const textStyle = {
-    marginLeft: '270px',
+    marginLeft: '250px',
+    marginRight:'10px',
   };
 
  
@@ -35,7 +36,7 @@ const ProductDetails = () => {
           <p className="text-description">{description}</p>
 
           {user && user.rol === "comprador" &&(
-            <Button className="btn btn-comprar mx-auto"> Comprar </Button>
+            <Button className="btn btn-comprar mx-auto"> Agregar al carrito </Button>
           )}
 
         </div>

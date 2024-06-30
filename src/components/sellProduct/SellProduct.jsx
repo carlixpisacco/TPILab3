@@ -27,7 +27,8 @@ const SellProduct = () => {
     const [showErrorAlert, setShowErrorAlert] = useState(false);
 
     const textStyle = {
-        marginLeft: '200px',
+        marginLeft: '220px',
+        marginRight:'10px',
     };
 
     const handleChange = (e) => {

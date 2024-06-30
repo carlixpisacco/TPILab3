@@ -4,15 +4,22 @@ import AuthenticationContext from "../../services/authentication/Authentication.
 import { useNavigate } from "react-router-dom";
 import TokenContext from "../tokenContext/TokenContext";
 import './Login.css';
-import BasicHeader from "../basicHeader/BasicHeader";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { updateToken } = useContext(TokenContext);
-    const { handleLogin} = useContext(AuthenticationContext);
+    const { handleLogin } = useContext(AuthenticationContext);
     const [error, setError] = useState(null);
+    const [userStatus, setUserStatus] = useState(true);
+
+
+    const handleBackButtonClick = () => {
+        navigate("/");
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -36,13 +43,19 @@ const Login = () => {
             })
             .then(data => {
                 console.log("Respuesta del servidor:", data); // Verificar la respuesta del servidor
-                const jwtToken = data.accessToken; // Extraer el token JWT de la respuesta del servidor
-                if (jwtToken) {
-                    updateToken(jwtToken); // Actualizar el token en el contexto de tokens
-                    handleLogin(); // Realizar el proceso de inicio de sesión
-                    navigate('/'); // Redirigir a la página de perfil u otra página autorizada
-                } else {
-                    throw new Error('Token no recibido'); // Manejar errores si no se recibe el token
+                if (data.estado === false) {
+                    setUserStatus(false)
+                }
+                else {
+                    const jwtToken = data.accessToken; // Extraer el token JWT de la respuesta del servidor
+                    if (jwtToken) {
+                        updateToken(jwtToken); // Actualizar el token en el contexto de tokens
+                        handleLogin(); // Realizar el proceso de inicio de sesión
+                        setUserStatus(true);
+                        navigate('/'); // Redirigir a la página de perfil u otra página autorizada
+                    } else {
+                        throw new Error('Token no recibido'); // Manejar errores si no se recibe el token
+                    }
                 }
             })
             .catch(error => {
@@ -57,7 +70,17 @@ const Login = () => {
 
     return (
         <>
-            <BasicHeader text={""} buttonText={"Volver al menu principal"} textStyle={null} />
+             <header className="header">
+                <div className="container-fluid header-container">
+                    <div className="row align-items-center header-row">
+                        <div className="col-auto">
+                            <Button className='button-back-bheader' variant="primary" onClick={handleBackButtonClick}>
+                                <FontAwesomeIcon className='flecha' icon={faArrowLeft} /> <p className='text-button'>Volver al menu principal</p>
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </header>
             <div className="login-container">
                 <Card className="login-card">
                     <h3>¡Bienvenido/a!</h3>
@@ -88,6 +111,12 @@ const Login = () => {
                             Iniciar sesión
                         </Button>
                     </Form>
+
+                    { !userStatus && (
+                        <Alert className="w-100 mt-3" variant="danger">Usted ha eliminado su usuario.
+                        Si desea volver a registrarse, por favor use otro mail. 
+                        </Alert>
+                    )}
 
                     {error && (
                         <div className="w-100 mt-3">

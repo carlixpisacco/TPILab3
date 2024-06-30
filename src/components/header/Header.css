@@ -18,11 +18,12 @@
     padding: 5px;
 }
 .button-back{
-    margin-left: 30px;
+    margin-left: 50px;
     text-align: center;
     background-color: rgb(54, 54, 195); /* Color de fondo */
     color: #fff; /* Color de texto */
     border-color: rgb(54, 54, 195);
+    padding:3px 5px 2px 5px;
 }
 
 
@@ -32,11 +33,11 @@
 }
 
 .select-women{
-    margin-left: 110px;
+    margin-left: 90px;
 }
 
 .select-children{
-    margin-right: 110px;
+    margin-right: 50px;
 }
 
 
@@ -67,7 +68,6 @@
 
 /*Botones*/
 .carrito{
-    padding:4px 5px;
     margin-top:2px;
     color:#fff
 }
@@ -76,7 +76,8 @@
     background-color:darkgreen;
     border-color:darkgreen;
     margin-right:60px;
-    margin-left:0px;
+    margin-left:40px;
+    padding:7px 14px;
 }
 
 .btn-shopcart:hover{
@@ -90,7 +91,7 @@
     color: #fff;
     font-weight: 500;
     margin-right:15px;
-    margin-left:15px;
+    margin-left:105px;
 }
 
 .btn-register:hover{
@@ -119,12 +120,44 @@
     font-weight: 500;
     font-size:medium;
     padding:7px 8px;
+    margin-right:20px;
   }
 
   .btn-sale:hover{
     background-color:rgb(158, 252, 158);
     border-color:rgb(158, 252, 158);
     color: #fff;
+  }
+
+  .btn-edit-profile{
+    background-color: #db4d19; 
+    border-color:#db4d19; 
+    color: #fff;
+    font-weight: 500;
+    padding:7px 15px;
+    margin-left:20px;
+    margin-right:20px;
+  }
+
+.btn-edit-profile:hover{
+    background-color: #f8a88a; 
+    border-color: #f8a88a; 
+}
+
+
+.btn-user-admin{
+    background-color: #6f0b23; 
+    border-color:#6f0b23; 
+    color: #fff;
+    font-weight: 500;
+    margin-right:20px;
+    margin-left:40px;
+  }
+
+  .btn-user-admin:hover{
+    background-color: #d19eaa; 
+    border-color:#d19eaa;
+    color: #fff; 
   }
 
   .btn-logout{
@@ -139,5 +172,4 @@
     border-color:#e8e7e6; 
   }
 
-
-
+ 

@@ -1,69 +1,44 @@
 import Header from '../header/Header'
 import Products from '../products/Products'
 import NoProducts from '../noProducts/NoProducts'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import useProducts from '../useProducts/useProducts'
 import './MainPage.css'
 
 
 const MainPage = () => {
-
-  const [products, setProducts] = useState([]);
+  const { products } = useProducts();
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-
   useEffect(() => {
-    fetch("http://localhost:8000/products", {
-      method: "GET",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al obtener los productos");
-        }
-        return response.json();
-      })
-      .then((productsData) => {
-        setProducts(productsData);
-        setFilteredProducts(productsData)
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
+    setFilteredProducts(products); 
+  }, [products]);
 
-  const handleSearchBar = (searchBarTerm) => {
-    setFilteredProducts([]);
+  const handleSearchBar = useCallback((searchBarTerm) => {
     const filtered = products.filter(product =>
       product.productTitle.toLowerCase().includes(searchBarTerm.toLowerCase()) ||
       product.productSeller.toLowerCase().includes(searchBarTerm.toLowerCase())
     );
     setFilteredProducts(filtered);
+  }, [products]);
 
-  };
-
-  const handleSearchSelect = (searchSelectTerms) => {
-    setFilteredProducts([]);
-
-    const [value, type] = searchSelectTerms; //uso el deconstructor ya que paso un arreglo en header.
-
+  const handleSearchSelect = useCallback((searchSelectTerms) => {
+    const [value, type] = searchSelectTerms;
     const filtered = products.filter(product =>
       product.product1Category.toLowerCase().includes(type.toLowerCase()) &&
       product.product2Category.toLowerCase().includes(value.toLowerCase())
     );
-
     setFilteredProducts(filtered);
-  }
-
+  }, [products]);
 
   return (
     <>
-      <Header onSearchBar={handleSearchBar} onSearchSelect={handleSearchSelect}/>
+      <Header onSearchBar={handleSearchBar} onSearchSelect={handleSearchSelect} />
       <div className='contenedor-main'>
-        {filteredProducts.length === 0 ? <NoProducts text ={"No se encontraron productos"} /> : <Products products={filteredProducts} />}
+        {filteredProducts.length === 0 ? <NoProducts/> : <Products products={filteredProducts} />}
       </div>
     </>
   )
 }
 
-
-export default MainPage
-
+export default MainPage;

@@ -36,9 +36,7 @@
 .product-card .card-subtitle {
   margin-top: 10px;
   margin-bottom: 10px;
-  /* Espacio entre subtítulo y siguiente elemento */
   color: #04325ab7;
-  /* Color de texto secundario */
 }
 
 .product-card .mb-3 {
@@ -46,27 +44,35 @@
   font-weight: bold;
 }
 
-.btn-comprar {
-  margin-bottom: 20px;
+.btn-add-carrito {
   background-color: #095e0f;
   border-color: #095e0f;
   color: #dbeaf9;
   font-weight: 500;
+  margin-bottom: 15px;
 }
 
-.btn-comprar:hover {
+.btn-add-carrito:hover {
   background-color: rgb(106, 184, 115);
   border-color: rgb(106, 184, 115);
 }
 
-
-.btn-detalles,
-.btn-editar {
+.btn-detalles{
+  margin-bottom: 18px;
   background-color: #007bff;
   border-color: #007bff;
   color: #fff;
   font-weight: 500;
 }
+
+.btn-editar{
+  margin-bottom:15px;
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  font-weight: 500;
+}
+
 
 .btn-detalles:hover,
 .btn-editar:hover {
@@ -82,7 +88,7 @@
 
 
 .btn-eliminar {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   background-color: #e60c0c;
   border-color: #e60c0c;
   color: #dbeaf9;

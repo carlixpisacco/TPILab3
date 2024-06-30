@@ -23,6 +23,7 @@ const EditProduct = () => {
 
     const textStyle = {
         marginLeft: '270px',
+        marginRight:'40px',
     };
 
     const handleInputChange = (e) => {
@@ -103,6 +104,7 @@ const EditProduct = () => {
                                     value={editedValues.productTitle}
                                     onChange={handleInputChange}
                                     className="input-edit"
+                                    autoFocus
                                 />
                                 <Button variant="success" size="sm" className='btn-edit-guardar' onClick={handleSaveClick}>Guardar</Button>
                                 <Button variant="danger" size="sm" className='btn-edit-x' onClick={handleCancelClick}>
@@ -176,6 +178,7 @@ const EditProduct = () => {
                                     value={editedValues.productDescription}
                                     onChange={handleInputChange}
                                     className="input-edit"
+                                    autoFocus
                                     style={{ width: '200px', minHeight: '100px', borderRadius: '4px', marginLeft: "30px", marginTop: "10px", marginBottom: "15px" }}
                                 />
                                 <Button variant="success" size="sm" className='btn-edit-guardar' onClick={handleSaveClick}>Guardar</Button>
@@ -198,6 +201,7 @@ const EditProduct = () => {
                                     value={editedValues.productPrice}
                                     onChange={handleInputChange}
                                     className="input-edit"
+                                    autoFocus
                                 />
                                 <Button variant="success" size="sm" className='btn-edit-guardar' onClick={handleSaveClick}>Guardar</Button>
                                 <Button variant="danger" size="sm" className='btn-edit-x' onClick={handleCancelClick} >

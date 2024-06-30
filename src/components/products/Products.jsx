@@ -44,7 +44,9 @@ const Products = ({ products }) => {
             />
           ))
         ) : (
-          <NoProducts/>
+          <div className="noproductsdiv">
+            <NoProducts/>
+          </div>
         )}
     </div>
   );
