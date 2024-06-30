@@ -4,6 +4,7 @@ import './ProductItem.css'
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from 'react';
 import AuthenticationContext from '../../services/authentication/Authentication.context';
+import CartContext from '../cartContext/CartContext'
 
 const ProductItem = ({ id, seller, title, category1, category2, condition, size, description, price, image, estadoComprado, estado }) => { 
     const formattedProductTitle = title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();//pone primera letra en mayus y resto en minuscula.
@@ -11,6 +12,7 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
     const { user,token} = useContext(AuthenticationContext);
     const navigate = useNavigate();
     const [productDeleted, setProductDeleted] = useState(false);
+    const { addToCart } = useContext(CartContext);
 
     const handleClickDetails = () => {
         navigate(`/product/${id}`, {
@@ -68,6 +70,18 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
         }
     };
     
+
+    const handleAddToCart = () => {
+        const productAdd = {
+            id,
+            title,
+            price,
+            estado
+        };
+        addToCart(productAdd)
+        console.log("array", productAdd);
+    }
+
     return (
         <div>
             <div className="card-container">
@@ -93,7 +107,7 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
                         <div className="mb-3">${price}</div>
 
                         {user && user.rol === "comprador" && (
-                            <Button className="btn btn-comprar d-block mb-2 mx-auto">Comprar</Button>
+                            <Button className="btn btn-comprar d-block mb-2 mx-auto" onClick={handleAddToCart}>Añadir al carrito</Button>
                         )}
 
                         {!user && (

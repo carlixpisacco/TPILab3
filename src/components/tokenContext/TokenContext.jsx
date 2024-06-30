@@ -11,7 +11,6 @@ const TokenProvider = ({ children }) => {
     const updateToken = (newToken) => {
         setToken(newToken);
         localStorage.setItem('token', newToken);
-        console.log("tokeeen", newToken)
     }
 
     const deleteToken = () => {

@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { jwtDecode } from "jwt-decode";
 
@@ -37,6 +37,16 @@ export const AuthenticationContextProvider = ({ children }) => {
       setError('No hay token disponible');
     }
   };
+
+  useEffect(() => {
+    // Esta función se ejecutará al cargar el componente
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      console.log("Usuario recuperado:1", parsedUser);
+      setUser(parsedUser)
+    }
+  }, []);
 
   const handleLogout = () => {
     setUser(null);
