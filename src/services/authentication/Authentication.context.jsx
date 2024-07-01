@@ -41,10 +41,12 @@ export const AuthenticationContextProvider = ({ children }) => {
   useEffect(() => {
     // Esta función se ejecutará al cargar el componente
     const storedUser = localStorage.getItem('user');
+    const storedToken = localStorage.getItem('token')
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      console.log("Usuario recuperado:1", parsedUser);
-      setUser(parsedUser)
+      console.log("Usuario recuperado:", parsedUser, "token", storedToken);
+      setUser(parsedUser);
+      setToken(storedToken);
     }
   }, []);
 

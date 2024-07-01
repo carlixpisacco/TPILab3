@@ -11,6 +11,7 @@ import PreRegisterForm from "./components/preRegisterForm/PreRegisterForm";
 import Protected from "./components/protected/Protected";
 import EditProduct from "./components/editProduct/EditProduct";
 import Profile from "./components/profile/Profile";
+import UserCard from "./components/userCard/UserCard"
 
 function App() {
 
@@ -71,6 +72,12 @@ function App() {
     {
       path: "/profile",
       element: <Profile/>,
+    },
+
+    {
+      path: "/userCard",
+      element: <UserCard />
+
     },
 
     {

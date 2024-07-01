@@ -83,6 +83,10 @@ const Header = ({ onSearchBar, onSearchSelect }) => {
         navigate('/profile');
     };
 
+    const handleClickUserCard = () => {
+        navigate('/userCard')
+    }
+
     return (
         <header className="header">
             <div className="container-fluid header-container">
@@ -158,7 +162,7 @@ const Header = ({ onSearchBar, onSearchSelect }) => {
                             )}
 
                             {user.rol === "admin" && (
-                                <Button  className='btn-user-admin'>
+                                <Button  className='btn-user-admin' onClick={handleClickUserCard}>
                                     Administrar usuarios
                                 </Button>
                             )}

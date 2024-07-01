@@ -12,7 +12,7 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { updateToken } = useContext(TokenContext);
-    const { handleLogin } = useContext(AuthenticationContext);
+    const { handleLogin, user } = useContext(AuthenticationContext);
     const [error, setError] = useState(null);
     const [userStatus, setUserStatus] = useState(true);
 
@@ -107,10 +107,16 @@ const Login = () => {
                             />
                         </FormGroup>
 
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" disabled={user !== null}>
                             Iniciar sesión
                         </Button>
-                    </Form>
+                    </Form> 
+
+                    {user && (
+                    <div className="w-100 mt-3">
+                        <Alert variant="success">Usted ya inicio sesión.</Alert>
+                    </div>
+                    )}
 
                     { !userStatus && (
                         <Alert className="w-100 mt-3" variant="danger">Usted ha eliminado su usuario.
