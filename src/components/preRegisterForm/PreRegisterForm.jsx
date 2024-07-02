@@ -8,7 +8,7 @@ import BasicHeader from '../basicHeader/BasicHeader';
 
 const PreRegisterForm = () => {
     const textStyle = {
-        marginLeft: '450px',
+        marginLeft: '350px',
     };
     const navigate = useNavigate();
 

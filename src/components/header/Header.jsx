@@ -83,9 +83,9 @@ const Header = ({ onSearchBar, onSearchSelect }) => {
         navigate('/profile');
     };
 
-    const handleClickUserCard = () => {
-        navigate('/userCard')
-    }
+    const handleAdminFunction = () => {
+        navigate('/userCard');
+    };
 
     return (
         <header className="header">
@@ -160,16 +160,26 @@ const Header = ({ onSearchBar, onSearchSelect }) => {
                                     Subir Producto
                                 </Button>
                             )}
-
                             {user.rol === "admin" && (
-                                <Button  className='btn-user-admin' onClick={handleClickUserCard}>
-                                    Administrar usuarios
+                                <>
+                                <Button
+                                className='btn-user-admin'
+                                onClick={handleAdminFunction} 
+                              >
+                                Administrar usuarios
+                              </Button>
+                                <Button className='btn-logout' onClick={handleLogoutAndRedirect}>
+                                    Cerrar Sesión
                                 </Button>
+                                
+                              </>
                             )}
 
-                            <Button className='btn-logout' onClick={handleLogoutAndRedirect}>
-                                Cerrar Sesión
-                            </Button>
+                            {user.rol !== "admin" && (
+                                <Button className='btn-logout' onClick={handleLogoutAndRedirect}>
+                                    Cerrar Sesión
+                                </Button>
+                            )}
                         </div>
                     )}
 

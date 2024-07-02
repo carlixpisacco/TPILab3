@@ -16,6 +16,11 @@
 
 }
 
+.product-card:hover {
+  transform: scale(1.05); /* Amplía la tarjeta al pasar el mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al pasar el mouse */
+}
+
 .product-card .card-body {
   padding: 10px;
 }

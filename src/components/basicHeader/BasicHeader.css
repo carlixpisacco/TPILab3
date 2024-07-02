@@ -20,13 +20,13 @@
 }
 
 .button-back-bheader{
-    padding:0px 8px;
+    padding:5px 8px;
     display:flex;
     margin-left: 20px;
     justify-content: center;
     align-items: center;
-    background-color: rgb(89, 155, 222); /* Color de fondo */
-    color: #fff; /* Color de texto */
+    background-color: rgb(89, 155, 222); 
+    color: #fff; 
     border-color:rgb(89, 155, 222);
 }
 
@@ -36,8 +36,6 @@
     font-size:small;
     font-weight: 400;
 }
-
-
 
 .text {
     color: rgb(218, 218, 249);

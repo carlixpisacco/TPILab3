@@ -6,10 +6,10 @@ import { useContext, useState } from 'react';
 import AuthenticationContext from '../../services/authentication/Authentication.context';
 import CartContext from '../cartContext/CartContext'
 
-const ProductItem = ({ id, seller, title, category1, category2, condition, size, description, price, image, estadoComprado, estado }) => { 
+const ProductItem = ({ id, seller, title, category1, category2, condition, size, description, price, image, estadoComprado, estado }) => {
     const formattedProductTitle = title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();//pone primera letra en mayus y resto en minuscula.
     const formattedProductSeller = seller.charAt(0).toUpperCase() + seller.slice(1).toLowerCase();
-    const { user,token} = useContext(AuthenticationContext);
+    const { user, token } = useContext(AuthenticationContext);
     const navigate = useNavigate();
     const [productDeleted, setProductDeleted] = useState(false);
     const { addToCart } = useContext(CartContext);
@@ -32,7 +32,7 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
         });
     };
 
-    const  handleClickEdit = () => {
+    const handleClickEdit = () => {
         navigate(`/editProduct/${id}`, {
             state: {
                 product: {
@@ -46,7 +46,7 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
             },
         });
     };
-  
+
     const updateProductStatus = async () => {
         try {
             const response = await fetch(`http://localhost:8000/products/${id}`, {
@@ -69,7 +69,7 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
             console.error('Error:', error);
         }
     };
-    
+
 
     const handleAddToCart = () => {
         const productAdd = {
@@ -108,8 +108,8 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
 
                         {user && user.rol === "comprador" && (
                             <>
-                            <Button className="btn btn-add-carrito d-block  mx-auto" onClick={handleAddToCart}>Añadir al carrito</Button>
-                            <Button className="btn btn-detalles d-block mx-auto" onClick={handleClickDetails}>Ver Detalles</Button>
+                                <Button className="btn btn-add-carrito d-block  mx-auto" onClick={handleAddToCart}>Añadir al carrito</Button>
+                                <Button className="btn btn-detalles d-block mx-auto" onClick={handleClickDetails}>Ver Detalles</Button>
                             </>
                         )}
 
@@ -122,12 +122,12 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
                                 {!estadoComprado ? (
                                     <>
                                         {!productDeleted ? (
-                                        <>
-                                        <Button className="btn btn-editar d-block  mx-auto" onClick={handleClickEdit}>Editar</Button>
-                                        <Button className="btn btn-eliminar d-block mx-auto" onClick={updateProductStatus}>Eliminar</Button>
-                                        </>
+                                            <>
+                                                <Button className="btn btn-editar d-block  mx-auto" onClick={handleClickEdit}>Editar</Button>
+                                                <Button className="btn btn-eliminar d-block mx-auto" onClick={updateProductStatus}>Eliminar</Button>
+                                            </>
                                         ) : (
-                                            <div className="alert alert-warning d-block mx-auto" style={{ backgroundColor: '#f8d7da', borderColor: '#f5c6cb', color: '#721c24', marginTop:"20px"}}>Eliminaste este producto</div>
+                                            <div className="alert alert-warning d-block mx-auto" style={{ backgroundColor: '#f8d7da', borderColor: '#f5c6cb', color: '#721c24', marginTop: "20px" }}>Eliminaste este producto</div>
                                         )}
                                     </>
                                 ) : (
@@ -135,15 +135,18 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
                                 )}
                             </>
                         )}
-                    
+
                         {user && user.rol === "admin" && (
                             <>
-                                <Button className="btn btn-eliminar d-block mx-auto">Eliminar Producto</Button>
-                                {estadoComprado && (
-                                    <div className="alert alert-info d-block mx-auto">Este producto fue vendido</div>
-                                )}
-                                {!estado && (
-                                    <div className="alert alert-info d-block mx-auto">Este producto fue eliminado por su vendedor</div>
+                                {!productDeleted ? (
+                                    <>
+                                        <Button className="btn btn-eliminar d-block mx-auto" onClick={updateProductStatus}>Eliminar Producto</Button>
+                                        {estadoComprado && (
+                                            <div className="alert alert-info d-block mx-auto">Este producto fue vendido</div>
+                                        )}
+                                    </>
+                                ) : (
+                                    <div className="alert alert-warning d-block mx-auto" style={{ backgroundColor: '#f8d7da', borderColor: '#f5c6cb', color: '#721c24', marginTop: "20px" }}>Eliminaste este producto</div>
                                 )}
                             </>
                         )}

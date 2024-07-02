@@ -18,8 +18,8 @@ const Products = ({ products }) => {
     // Para vendedores, solo mostrar sus propios productos
     productsToRender = products.filter(product => product.productSeller === user.username && product.estado);
   } else if (user && user.rol === "admin") {
-    // Para admin, mostrar todos los productos
-    productsToRender = products;
+    // Para admin mostrar solo productos con estado "true", es decir que no fueron eliminados. 
+    productsToRender = products.filter(product => product.estado);
   }
 
   // Renderizar los productos filtrados

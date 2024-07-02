@@ -1,4 +1,4 @@
-import { Card, Button, FormControl, FormLabel, Modal } from 'react-bootstrap';
+import { Card, Button, FormControl, FormLabel, Modal, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
@@ -11,12 +11,14 @@ import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
     const navigate = useNavigate();
-    const { user, token, handleLogout } = useContext(AuthenticationContext);
+    const { user, token, handleLogout, updateUser } = useContext(AuthenticationContext);
     const { products } = useProducts();
     const [editingUsername, setEditingUsername] = useState(false);
     const [newUsername, setNewUsername] = useState(user.username || '');
+    const [tempUsername, setTempUsername] = useState(user.username || '');
     const [showModal, setShowModal] = useState(false);
     const productsToUpdate = products.filter(product => product.productSeller === user.username);
+    const [showAlert, setShowAlert] = useState(false);
 
     const handleUsernameChange = (e) => {
         setNewUsername(e.target.value);
@@ -30,12 +32,16 @@ const Profile = () => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ username: newUsername }),
+                body: JSON.stringify({ username: newUsername }), // Cambiado a newUsername
             });
 
             if (!response.ok) {
                 throw new Error('Error al guardar el username');
             }
+
+            const updatedUser = { ...user, username: newUsername };
+            updateUser(updatedUser);
+        
 
             // Actualizar cada producto en la base de datos mediante PATCH
             productsToUpdate.forEach(async (product) => {
@@ -46,21 +52,25 @@ const Profile = () => {
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${token}`,
                         },
-                        body: JSON.stringify({ productSeller: newUsername }),
+                        body: JSON.stringify({ productSeller: newUsername }), // Cambiado a newUsername
                     });
 
                     if (!updateProductResponse.ok) {
-                        throw new Error(`Error al actualizar el producto ${product.id}`);
+                        throw new Error(`Error al actualizar el username del producto ${product.id}`);
                     }
 
                     const updatedProduct = await updateProductResponse.json();
-                    console.log('Producto actualizado con éxito:', updatedProduct);
+                    console.log('Username del producto actualizado con éxito:', updatedProduct);
 
                 } catch (error) {
-                    console.error(`Error al actualizar el producto ${product.id}:`, error);
+                    console.error(`Error al actualizar el username del producto ${product.id}:`, error);
                     // Manejo de errores si es necesario
                 }
             });
+            setTempUsername(newUsername);
+            setEditingUsername(false); 
+            setShowAlert(true); 
+            setNewUsername(''); 
 
         } catch (error) {
             console.error('Error:', error);
@@ -69,7 +79,7 @@ const Profile = () => {
 
     const handleCancelEdit = () => {
         setEditingUsername(false);
-        setNewUsername(user.username || '');
+        setNewUsername(tempUsername);
     };
 
     const handleShowModal = () => setShowModal(true);
@@ -89,8 +99,8 @@ const Profile = () => {
             if (!response.ok) {
                 throw new Error('Error al eliminar el usuario');
             }
-            handleCloseModal()
-            handleLogout()
+            handleCloseModal();
+            handleLogout();
             navigate("/");
             const data = await response.json();
             console.log('estado modificado con éxito', data);
@@ -113,8 +123,14 @@ const Profile = () => {
                             <span className='edit-profile-email'>Email:</span> <span className='profile-email-data'>{user.email}</span>
                         </Card.Text>
                         <Card.Text>
-                            <span className='edit-profile-username'>Username:</span > <span className='profile-username-data'>{user.username}</span>
+                            <span className='edit-profile-username'>Username:</span > <span className='profile-username-data'>{tempUsername}</span>
                         </Card.Text>
+
+                        {showAlert && (
+                            <Alert variant="success" onClose={() => setShowAlert(false)} style={{ width: '300px', marginLeft: '150px' }}>
+                                Username guardado con éxito
+                            </Alert>
+                        )}
 
                         {/* Campo de edición para Username */}
                         {editingUsername ? (

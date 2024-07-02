@@ -1,0 +1,37 @@
+.usercard-container{
+    margin-top:120px;
+}
+
+.usercard-admin {
+    width: 250px; /* Define el ancho de las tarjetas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.397); /* Agrega sombra */
+    border: 1px solid #d92121; /* Define el borde */
+    border-radius: 8px; /* Opcional: redondea las esquinas */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Añade transición */
+  }
+  
+  .usercard-admin:hover {
+    transform: scale(1.05); /* Amplía la tarjeta al pasar el mouse */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al pasar el mouse */
+  }
+  
+  .usercard-body-admin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+  }
+  
+.mb-4-custom {
+    margin-bottom: 40px; /* Define el margen inferior personalizado */
+  }
+
+.title-card-admin{
+    color: rgb(88, 88, 96);
+    font-weight: bold;
+}
+
+.text-card-admin{
+    color:rgb(87, 77, 61)
+}

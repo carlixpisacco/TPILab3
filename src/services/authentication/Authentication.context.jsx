@@ -50,6 +50,11 @@ export const AuthenticationContextProvider = ({ children }) => {
     }
   }, []);
 
+  const updateUser = (updatedUser) => {
+    setUser(updatedUser);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+};
+
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem("user");
@@ -83,7 +88,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   };
 
   return (
-    <AuthenticationContext.Provider value={{ user, token, handleLogin, handleLogout, handleRegister, error }}>
+    <AuthenticationContext.Provider value={{ user, token,updateUser, handleLogin, handleLogout, handleRegister, error }}>
       {children}
     </AuthenticationContext.Provider>
   );

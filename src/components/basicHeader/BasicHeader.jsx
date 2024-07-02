@@ -22,7 +22,6 @@ const BasicHeader = ({ text, buttonText, textStyle }) => {
     };
 
     return (
-        <div>
             <header className="header">
                 <div className="container-fluid header-container">
                     <div className="row align-items-center header-row">
@@ -44,7 +43,6 @@ const BasicHeader = ({ text, buttonText, textStyle }) => {
                     </div>
                 </div>
             </header>
-        </div>
     )
 }
 

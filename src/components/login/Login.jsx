@@ -114,13 +114,14 @@ const Login = () => {
 
                     {user && (
                     <div className="w-100 mt-3">
-                        <Alert variant="success">Usted ya inicio sesión.</Alert>
+                        <Alert variant="success">Usted ya inició sesión.</Alert>
                     </div>
                     )}
 
                     { !userStatus && (
-                        <Alert className="w-100 mt-3" variant="danger">Usted ha eliminado su usuario.
+                        <Alert className="w-100 mt-3" variant="danger">Usted está dado de baja del sistema.
                         Si desea volver a registrarse, por favor use otro mail. 
+                        Si desea recuperar su cuenta comuníquese con soporte. 
                         </Alert>
                     )}
 
