@@ -1,9 +1,8 @@
 import { createContext, useState } from 'react';
 import PropTypes from "prop-types";
-// Crear el contexto
 export const CartContext = createContext();
 
-// Crear el proveedor del contexto
+
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
 
@@ -21,9 +20,15 @@ export const CartProvider = ({ children }) => {
             } 
         });
     };
+    
+    const removeFromCart = (productId) => {
+        const updatedCart = cart.filter(product => product.id !== productId);
+        setCart(updatedCart);
+    };
+
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, setCart }}>
+        <CartContext.Provider value={{ cart, addToCart, setCart, removeFromCart}}>
             {children}
         </CartContext.Provider>
     );

@@ -2,7 +2,7 @@ import { Card, Button, Alert } from "react-bootstrap";
 import PropTypes from "prop-types";
 import './ProductItem.css'
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import AuthenticationContext from '../../services/authentication/Authentication.context';
 import CartContext from '../cartContext/CartContext'
 
@@ -12,7 +12,8 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
     const { user, token } = useContext(AuthenticationContext);
     const navigate = useNavigate();
     const [productDeleted, setProductDeleted] = useState(false);
-    const { addToCart } = useContext(CartContext);
+    const { addToCart} = useContext(CartContext);
+    const [addedToCart, setAddedToCart] = useState(false);
 
     const handleClickDetails = () => {
         navigate(`/product/${id}`, {
@@ -70,6 +71,14 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
         }
     };
 
+    //lo hice para mantener los carteles cuando el usuario agregar productos al carrito y navega hacia otros componentes. 
+    useEffect(() => {
+        const isAdded = localStorage.getItem(`addedToCart_${id}`);
+        if (isAdded === 'true') {
+            setAddedToCart(true);
+        }
+    }, [id]);
+
 
     const handleAddToCart = () => {
         const productAdd = {
@@ -79,7 +88,8 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
             estado
         };
         addToCart(productAdd)
-        console.log("array", productAdd);
+        setAddedToCart(true);
+        localStorage.setItem(`addedToCart_${id}`, 'true');
     }
 
     return (
@@ -108,8 +118,17 @@ const ProductItem = ({ id, seller, title, category1, category2, condition, size,
 
                         {user && user.rol === "comprador" && (
                             <>
-                                <Button className="btn btn-add-carrito d-block  mx-auto" onClick={handleAddToCart}>Añadir al carrito</Button>
-                                <Button className="btn btn-detalles d-block mx-auto" onClick={handleClickDetails}>Ver Detalles</Button>
+                                {addedToCart ? (
+                                    <Alert variant="success">
+                                        Agregaste este producto al carrito
+                                    </Alert>
+                                ) : (
+                                    <>
+                                        <Button className="btn btn-add-carrito d-block  mx-auto" onClick={handleAddToCart}>Añadir al carrito</Button>
+                                        <Button className="btn btn-detalles d-block mx-auto" onClick={handleClickDetails}>Ver Detalles</Button>
+                                    </>
+                                )}
+
                             </>
                         )}
 

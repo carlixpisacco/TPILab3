@@ -2,18 +2,22 @@ import { useContext } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import CartContext from '../cartContext/CartContext';
 import AuthenticationContext from '../../services/authentication/Authentication.context';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import BasicHeader from '../basicHeader/BasicHeader'
+import './ShoppingCart.css';
 
 const ShoppingCart = () => {
 
-    const navigate = useNavigate();
-    const { cart, setCart } = useContext(CartContext);
+    const { cart, setCart, removeFromCart } = useContext(CartContext);
     const { token } = useContext(AuthenticationContext);
+    
+
+    const textStyle = {
+        marginLeft: '300px',
+        marginRight: '160px',
+    };
 
     const updateStatus = async (id, token, estado) => {
-      
+
         try {
             const response = await fetch(`http://localhost:8000/products/${id}`, {
                 method: 'PATCH',
@@ -36,11 +40,6 @@ const ShoppingCart = () => {
         }
     };
 
-    const remove = (index) => {
-        const newCart = [...cart];
-        newCart.splice(index, 1);
-        setCart(newCart);
-    };
 
     const costoTotal = () => {
         return cart.reduce((total, product) => total + product.price, 0);
@@ -54,47 +53,40 @@ const ShoppingCart = () => {
         setCart([]);
     };
 
-    const handleBackButtonClick = () => {
-        navigate('/');
-    }
+    const handleRemoveFromCart = (productId) => {
+        removeFromCart(productId);
+        localStorage.removeItem(`addedToCart_${productId}`); // Eliminar del localStorage
+    };
 
     return (
         <>
-        <header className="header">
-                <div className="container-fluid header-container">
-                    <div className="row align-items-center header-row">
-                        <div className="col-auto">
-                            <Button className='button-back-bheader' variant="primary" onClick={handleBackButtonClick}>
-                                <FontAwesomeIcon className='flecha' icon={faArrowLeft} /> <p className='text-button'>Volver al menu principal</p>
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </header>
-            {(!cart || cart.length === 0) ? (
-                <Card className="p-3">
-                    <h2>Productos</h2>
-                    <Card.Body>
-                        <p>El carrito está vacío</p>
-                    </Card.Body>
-                </Card>
-            ) : (
-                <Card className="p-3">
-                    <h2>Productos</h2>
-                    <Card.Body>
-                        <ul>
-                            {cart.map((product, index) => (
-                                <li key={product.id}>
-                                    {product.title} - ${product.price}
-                                    <Button className="btn btn-primary ml-2" onClick={() => remove(index)}>Eliminar producto</Button>
-                                </li>
-                            ))}
-                        </ul>
-                        <p>Total: ${costoTotal()}</p>
-                        <Button className="btn btn-primary ml-2" onClick={handleBuy}>Comprar</Button>
-                    </Card.Body>
-                </Card>
-            )}
+            <BasicHeader text={"TU CARRITO"} buttonText={"Volver al menu principal"} textStyle={textStyle} />
+            <div className='shoppingcart-container'>
+                {(!cart || cart.length === 0) ? (
+                    <Card className="shoppingcart-card">
+                        <h2 className='shoppingcart-h21'>Productos elegidos</h2>
+                        <Card.Body>
+                            <p className='shoppingcart-empty'>El carrito está vacío</p>
+                        </Card.Body>
+                    </Card>
+                ) : (
+                    <Card className="shopingcart-card">
+                        <h2 className='shoppingcart-h2'>Productos elegidos</h2>
+                        <Card.Body>
+                            <ul className='shoppingcart-ul'>
+                                {cart.map((product) => (
+                                    <li key={product.id} className='shoppingcart-li'>
+                                        <span className='shoppingcart-product-title'>{product.title.charAt(0).toUpperCase() + product.title.slice(1).toLowerCase()} - </span>  <span className='shoppingcart-product-price'>${product.price}</span>
+                                        <Button className="btn-shoppingcart-eliminar" onClick={() => handleRemoveFromCart(product.id)}>Eliminar producto</Button>
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className='shoppingcart-total-container '><p className='shoppingcart-total'>Total:</p> <span className='span-total'>${costoTotal()}</span></div>
+                            <Button className="btn-shoppingcart-comprar" onClick={handleBuy}>Comprar</Button>
+                        </Card.Body>
+                    </Card>
+                )}
+            </div>
         </>
     );
 };
