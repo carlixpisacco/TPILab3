@@ -6,6 +6,8 @@ import { useContext, useState, useEffect } from 'react';
 import AuthenticationContext from '../../services/authentication/Authentication.context';
 import CartContext from '../cartContext/CartContext'
 
+
+
 const ProductItem = ({ id, seller, title, category1, category2, condition, size, description, price, image, estadoComprado, estado }) => {
     const formattedProductTitle = title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();//pone primera letra en mayus y resto en minuscula.
     const formattedProductSeller = seller.charAt(0).toUpperCase() + seller.slice(1).toLowerCase();

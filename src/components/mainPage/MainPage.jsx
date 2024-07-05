@@ -12,7 +12,7 @@ import UserCard from '../userCard/UserCard';
 
 
 const MainPage = () => {
-  const { products } = useProducts();
+  const { products, reloadProducts } = useProducts();
   const [filteredProducts, setFilteredProducts] = useState([]);
   const { user } = useContext(AuthenticationContext);
   const [view, setView] = useState('options');
@@ -21,6 +21,10 @@ const MainPage = () => {
   const handleViewChange = (newView) => {
     setPrevView(view); // Guardar la vista actual antes de cambiarla
     setView(newView);
+
+    if (newView === 'manage-products') {
+      reloadProducts(); //uso la función de recarga en useproduct porque no se me actualizaban las card cuando el admin eliminaba un producto. 
+    }
   };
 
   const handleBackButtonClick = () => {

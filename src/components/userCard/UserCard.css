@@ -35,3 +35,14 @@
 .text-card-admin{
     color:rgb(87, 77, 61)
 }
+
+.btn-editusername-admin{
+  background-color: rgb(104, 102, 102);
+  border-color: rgb(104, 102, 102);
+  margin-bottom:15px;
+}
+
+.btn-editusername-admin:hover{
+  background-color: rgb(185, 183, 183);
+  border-color: rgb(185, 183, 183);
+}
