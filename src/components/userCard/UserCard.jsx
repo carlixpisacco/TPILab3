@@ -9,7 +9,7 @@ import useProducts from '../useProducts/useProducts'
 const UserCard = () => {
   const [users, setUsers] = useState([]);
   const { token } = useContext(AuthenticationContext);
-  const { products } = useProducts();
+  const { products, reloadProducts } = useProducts();
   const [showModal, setShowModal] = useState(false);
   const [tempUsernameMap, setTempUsernameMap] = useState({}); // Estado para almacenar temporalmente los usernames editados
   const [editingUserId, setEditingUserId] = useState(null); // Estado para almacenar el ID del usuario en edición 
@@ -161,6 +161,27 @@ const UserCard = () => {
 
       handleCloseModal(); // Cierra el modal después de modificar el usuario
 
+      await Promise.all(productsToUpdate.map(async (product) => {
+        try {
+          const updateProductResponse = await fetch(`http://localhost:8000/products/${product.id}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ estado: !users.find(u => u.id === editingUserId).estado }),
+          });
+
+          if (!updateProductResponse.ok) {
+            throw new Error(`Error al actualizar el estado del producto ${product.id}`);
+          }
+
+        } catch (error) {
+          console.error(`Error al actualizar el estado del producto ${product.id}:`, error);
+        }
+      }));
+
+      reloadProducts(); // Recarga los productos después de actualizar
     } catch (error) {
       console.error('Error:', error);
     }
